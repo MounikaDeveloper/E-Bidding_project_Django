@@ -1,0 +1,104 @@
+<!doctype html>
+
+{% if request.session.user_username %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Online Product Bidding</title>
+  </head>
+  <body>
+
+    <table align="center">
+        <tr>
+            <th>
+                {% include "head.html" %}
+            </th>
+        </tr>
+        <tr>
+            <th>
+                {% include "users_template/user_menu.html" %}
+            </th>
+        </tr>
+        <tr>
+            <th style="text-align: center">
+
+
+                <table align="center">
+                    <tr>
+                       {% comment %} <td>
+                            <form action="{% url 'save_product' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                            <table align="center">
+                                <tr> <th><input type="number" name="p1" placeholder="Product No" required></th></tr>
+                                <tr> <th><input type="text" name="p2" placeholder="Name" required></th></tr>
+                                <tr> <th><input type="number" name="p3" placeholder="Biding Price" required></th></tr>
+                                <tr> <th><textarea name="p4" placeholder="Product Info"></textarea> </th></tr>
+                                <tr> <th>Product Photo<input type="file" name="p5" required></th></tr>
+                                <tr><th><button type="submit">Save</button> </th></tr>
+                            </table>
+                            </form>
+                        </td>{% endcomment %}
+                        <td>
+
+                            <table align="center" border="2">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Product Info</th>
+                                    <th>Photo</th>
+                                    <th>Status</th>
+                                </tr>
+                                {% for x in data %}
+                                     <tr>
+                                    <th>
+
+                                    <a href="{% url 'bid_details' %}?pid={{ x.pid }}">
+                                        {{ x.pid }}
+                                    </a>
+                                    </th>
+                                    <th>{{ x.name }}</th>
+                                    <th>{{ x.bprice }}</th>
+                                    <th>{{ x.info }}</th>
+                                    <th><img src="{{ x.image.url }}" width="80" height="80"></th>
+                                    <th>{{ x.status }}</th>
+                                    <th>
+                                        <form action="{% url 'bid_amount' %}" method="post">
+                                            {% csrf_token %}
+                                        <input placeholder="Bid Amount" name="p1" type="number" required>
+                                        <input name="p2" type="hidden" value="{{ x.pid }}" required>
+                                        <input name="p3" type="hidden" value="{{ request.session.user_idno }}" required>
+
+                                        <button type="submit">Bid</button>
+                                        </form>
+                                    </th>
+                                </tr>
+                                {% endfor %}
+
+                            </table>
+
+                        </td>
+                    </tr>
+                </table>
+
+            </th>
+        </tr>
+    </table>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
+{% else %}
+    <h1>Invalid Session</h1>
+{% endif %}

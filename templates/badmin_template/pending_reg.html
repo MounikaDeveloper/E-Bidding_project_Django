@@ -1,0 +1,82 @@
+<!doctype html>
+{% load staticfiles %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Admin Page</title>
+  </head>
+  <body>
+
+    <table align="center">
+      <tr>
+          <th>
+              {% include "head.html" %}
+          </th>
+      </tr>
+       <tr>
+           <th>
+               {% include "badmin_template/admin_menu.html" %}
+           </th>
+       </tr>
+        <tr>
+            <th>
+                <table align="center" border="2">
+                <tr>
+                    <th colspan="7">
+                        <h3 style="text-align: center">Pending Users</h3>
+                    </th>
+                </tr>
+                    <tr>
+                        <th height="50" width="50" style="text-align: center;color: red;background-color: yellow">IDNO</th>
+                        <th height="50" width="150" style="text-align: center;color: red;background-color: yellow">NAME</th>
+                        <th height="50" width="100" style="text-align: center;color: red;background-color: yellow">CONTACT</th>
+                        <th height="50" width="250" style="text-align: center;color: red;background-color: yellow">EMAIL</th>
+                        <th height="50" width="150" style="text-align: center;color: red;background-color: yellow">JOIN DATE</th>
+                        <th height="50" width="50" style="text-align: center;color: red;background-color: yellow">APPROVE</th>
+                        <th height="50" width="50" style="text-align: center;color: red;background-color: yellow">DECLINE</th>
+
+                    </tr>
+                    {% for x in data %}
+                         <tr>
+                        <td>{{ x.id }}</td>
+                        <td>{{ x.name }}</td>
+                        <td>{{ x.contact }}</td>
+                        <td>{{ x.email }}</td>
+
+                        <td>{{ x.doj }}</td>
+                        <td>
+                            <form action="{% url 'approve'%}" method="post">
+                                {% csrf_token %}
+                            <input type="hidden" name="a1" value="{{ x.id }}">
+                            <button type="submit">Yes</button>
+                            </form>
+                        </td>
+                         <td>
+                            <form action="{% url 'decline'%}" method="post">
+                                {% csrf_token %}
+                            <input type="hidden" name="a2" value="{{ x.id }}">
+                            <button type="submit">Yes</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </th>
+        </tr>
+    </table>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
