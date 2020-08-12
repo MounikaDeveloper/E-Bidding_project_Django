@@ -1,1 +1,1 @@
-web: gunicorn Bidding_task.wsgi:application --log-file -
+web: gunicorn Bidding_task:app
