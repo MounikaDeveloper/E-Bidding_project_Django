@@ -1,1 +1,1 @@
-web: gunicorn Bidding_task:app
+web: gunicorn Bidding:app
