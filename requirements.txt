@@ -24,7 +24,7 @@ django-filter==2.2.0
 django-heroku==0.3.1
 django-pagination==1.0.7
 django-paginator==0.2a3
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 djongo==1.2.33
 docutils==0.16
 filelock==3.0.12
